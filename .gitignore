@@ -17,3 +17,6 @@ profile
 DerivedData
 .idea/
 *.xcodeproj/
+*.pbxproj
+ß*.xcuserstate
+
