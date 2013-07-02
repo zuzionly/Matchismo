@@ -7,23 +7,42 @@
 //
 
 #import "CardGameViewController.h"
+#import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UIButton *cardButton;
+@property (strong, nonatomic) Deck *deck;
 
 @end
 
 @implementation CardGameViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+- (Deck *)deck{
+    if (!_deck) {
+        _deck = [PlayingCardDeck new];
+    }
+    return _deck;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setCardButtons:(NSArray *)cardButtons{
+    _cardButtons = cardButtons;
+    
+    for (UIButton *cardButton in cardButtons) {
+        Card *card = [self.deck drawRandomCard];
+        [cardButton setTitle:card.contents forState:UIControlStateSelected];
+    }
+    
 }
+
+
+- (IBAction)flipCard:(UIButton *)sender {
+    
+    sender.selected = !sender.isSelected;
+
+}
+
+
 
 @end
